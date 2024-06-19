@@ -1,14 +1,17 @@
 import dash,os,flask
 from dash import dcc,dash_table,html,callback
-from dash.dependencies import Input, Output, State, ALL
+from dash.dependencies import Input, Output
 import dash_bootstrap_components as dbc
 from dash.exceptions import PreventUpdate
 import pandas as pd
 import gunicorn   
 import plotly.graph_objects as go
-dash.register_page(__name__,name='Utilisation des numeros de prix')
-
+dash.register_page(__name__,name='Dernières 24 heures')
 from google.cloud import bigquery
+ bq_client = bigquery.Client()
+    table = bq_client.dataset("temps_google").table("A13-2024")
+
+          
 client = bigquery.Client()   
 query = "SELECT * from `sucombe.prestaProduit.prix-2024` limit 5000"
 rows=client.query(query).result()
