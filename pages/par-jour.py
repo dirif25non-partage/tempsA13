@@ -6,7 +6,7 @@ from dash.exceptions import PreventUpdate
 import pandas as pd
 import gunicorn   
 import plotly.graph_objects as go
-dash.register_page(__name__,name='Evolution des temps de parcours par jour, du 4 au 17 juin',order=0)
+dash.register_page(__name__,name='Temps de parcours, du 4 au 17 juin',order=0)
 
 dg0=pd.read_csv('./pages/data.csv')
 lstOD=list(dg0['od'].unique())
@@ -23,8 +23,11 @@ def generate_graph(od):
       ),
      name=['HPM-6:10h','HC-10:16h','HPS-16:20h'][k]))
     fig.update_layout(
-    title='OD : '+od,
-    yaxis_title='Minutes',  
+    margin=dict(l=20, r=0, t=0, b=0),
+    autosize=True,
+    height=600,
+    yaxis = dict(title='Minutes', 
+                 fixedrange=True),
     xaxis = dict(
         title='Jours du mois de juin',
         tickmode = 'array',
@@ -48,9 +51,11 @@ layout = html.Div([
             ), width=3),  
                    ]),    
 
-        html.Hr(),
         dbc.Row(id='display-gr', children=[generate_graph('Versailles-Cht-PtAuteuil')]),
         html.Hr(),
+        dbc.Row(html.Img(src=r'assets/point5_A13.jpg', alt='image',
+                 style={'height':'50%', 'width':'50%'}),
+                   justify='center', align='center'),
 ])
 
 @callback( Output('display-gr', 'children'),
