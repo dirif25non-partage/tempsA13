@@ -17,7 +17,7 @@ app.title = "Temps de parcours A13"
 app.layout = html.Div([
     html.Div([
         dbc.Row([
-            dbc.Col(  dcc.Link(f"{page['name']}", href=page["relative_path"]) , width=6)        
+            dbc.Col(  dcc.Link(f"{page['name']}", href=page["relative_path"]) , width=4)        
          for page in dash.page_registry.values()],
             justify='center', align='center')
     ]),
